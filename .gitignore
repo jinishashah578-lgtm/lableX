@@ -1,0 +1,19 @@
+# Python. uv.lock is deliberately NOT ignored: pinning every transitive
+# dependency is the point of an application lockfile.
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Scan repository: uploaded photos and the local database
+backend/data/scans.db
+backend/data/images/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/
