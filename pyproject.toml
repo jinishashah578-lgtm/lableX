@@ -1,0 +1,38 @@
+[project]
+name = "label-x"
+version = "1.0.0"
+description = "Checks Indian packaged-commodity labels against the Legal Metrology (Packaged Commodities) Rules, 2011."
+readme = "../README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "pydantic>=2.7",
+    "pillow>=10.3",
+    # Primary label reader. OpenRouter speaks the OpenAI chat-completions
+    # protocol, so the OpenAI client is used against OpenRouter's base URL.
+    # Needs OPENROUTER_API_KEY.
+    "openai>=1.40",
+    # Local OCR fallback. The Python side is installed here; the tesseract
+    # binary itself is a system package:
+    #   macOS:  brew install tesseract tesseract-lang
+    #   Ubuntu: apt-get install tesseract-ocr tesseract-ocr-hin
+    "pytesseract>=0.3.10",
+    "pytest>=9.1.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.uv]
+# This is an application, not a library: install the dependencies, but do not
+# build and install `app` itself. Keeping it out of site-packages means the
+# data directory resolved from __file__ stays in the source tree.
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
